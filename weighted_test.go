@@ -89,6 +89,29 @@ func (b *Balancer) pick() *Node {
 	return target
 }
 
+// 简洁写法
+//func (b *Balancer) pick() *Node {
+//	b.mux.Lock()
+//	defer b.mux.Unlock()
+//	total := 0
+//	// 计算总权重 当前权重 挑选节点
+//	target := b.nodes[0]
+//	for _, n := range b.nodes {
+//		total += n.weight
+//		n.currWeight = n.currWeight + n.weight
+//		if target == nil || target.currWeight < n.currWeight {
+//			target = n
+//		}
+//	}
+//
+//	target.currWeight = target.currWeight - total
+//
+//	b.t.Log("选中的节点的当前权重", target)
+//	target.currWeight = target.currWeight - total
+//	b.t.Log("选中的节点减去总权重后的权重", target)
+//	return target
+//}
+
 func convert(src []*Node) []Node {
 	dst := make([]Node, 0, len(src))
 	for _, n := range src {
